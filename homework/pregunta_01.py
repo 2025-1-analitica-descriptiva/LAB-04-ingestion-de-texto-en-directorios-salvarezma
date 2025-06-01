@@ -18,6 +18,14 @@ def pregunta_01():
     """
     # Esta es la ruta donde se espera que se encuentre la carpeta 'input'
     # después de la descompresión, dentro de 'files'.
+    # Asegúrate de que tu estructura de carpetas en GitHub sea:
+    # tu_repositorio/
+    # ├── files/
+    # │   └── input/
+    # │       ├── train/
+    # │       └── test/
+    # └── homework/
+    #     └── pregunta_01.py (tu archivo de código)
     directorio_origen = "files/input" 
 
     # Crea la carpeta de salida si no existe
@@ -32,7 +40,10 @@ def pregunta_01():
     # Patrón de expresión regular para limpiar las frases:
     # 1. Reemplaza cualquier secuencia de uno o más espacios (incluyendo saltos de línea) con un solo espacio.
     # 2. Elimina cualquier carácter que no sea alfanumérico, espacio, o puntuación básica común.
-    patron_limpieza_frase = re.compile(r'[^a-zA-Z0-9\s.,!?;:\'"`-()&@#$%/+*=<>[]{}|~]')
+    # NOTA: El guion '-' se coloca al final dentro de `[]` para que se interprete literalmente
+    # y no como un rango, evitando el error `re.error: bad character range`.
+    patron_limpieza_frase = re.compile(r'[^a-zA-Z0-9\s.,!?;:\'"`()&@#$%/+*=<>\[\]{}|~-]')
+
 
     # Recorre los tipos de conjunto (train/test)
     for tipo_conjunto in ["train", "test"]:
