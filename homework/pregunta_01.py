@@ -6,6 +6,7 @@ Escriba el codigo que ejecute la accion solicitada en cada pregunta.
 """
 
 import os
+import csv
 
 def pregunta_01():
     """
@@ -38,12 +39,13 @@ def pregunta_01():
         nombre_archivo_csv = f"{tipo_conjunto}_dataset.csv"
         ruta_csv_salida = f"files/output/{nombre_archivo_csv}"
         
-        with open(ruta_csv_salida, 'w', encoding='utf-8') as archivo_csv:
-            archivo_csv.write("phrase,target\n")
+        with open(ruta_csv_salida, 'w', newline='', encoding='utf-8') as archivo_csv:
+            escritor_csv = csv.writer(archivo_csv, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            
+            escritor_csv.writerow(["phrase", "target"])
             
             for fila in datos:
-                frase_limpia = fila['phrase'].replace('\n', ' ').replace('\r', ' ').replace('"', '""')
-                archivo_csv.write(f'"{frase_limpia}",{fila["sentiment"]}\n')
+                escritor_csv.writerow([fila['phrase'], fila['sentiment']])
     """
     La información requerida para este laboratio esta almacenada en el
     archivo "files/input.zip" ubicado en la carpeta raíz.
