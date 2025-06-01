@@ -7,11 +7,13 @@ Escriba el codigo que ejecute la accion solicitada en cada pregunta.
 
 import os
 import csv
+import re
 
 def pregunta_01():
     """
     Genera "train_dataset.csv" y "test_dataset.csv" en "files/output"
-    a partir de la estructura de archivos ya descomprimida.
+    a partir de la estructura de archivos ya descomprimida,
+    usando el módulo csv para una escritura robusta y limpieza de frases.
     """
     directorio_origen = "files/input" 
 
@@ -32,8 +34,11 @@ def pregunta_01():
                     if nombre_archivo_txt.endswith(".txt"):
                         ruta_completa_txt = f"{ruta_sentimiento}/{nombre_archivo_txt}"
                         with open(ruta_completa_txt, 'r', encoding='utf-8') as f:
-                            frase = f.read().strip()
-                            conjuntos[tipo_conjunto].append({'phrase': frase, 'sentiment': sentimiento})
+                            frase_original = f.read()
+                            
+                            frase_limpia = re.sub(r'\s+', ' ', frase_original).strip()
+
+                            conjuntos[tipo_conjunto].append({'phrase': frase_limpia, 'sentiment': sentimiento})
 
     for tipo_conjunto, datos in conjuntos.items():
         nombre_archivo_csv = f"{tipo_conjunto}_dataset.csv"
