@@ -12,7 +12,7 @@ def pregunta_01():
     Genera "train_dataset.csv" y "test_dataset.csv" en "files/output"
     a partir de la estructura de archivos ya descomprimida.
     """
-    directorio_origen = "input"
+    directorio_origen = "files/input" 
 
     os.makedirs("files/output", exist_ok=True)
 
@@ -39,13 +39,10 @@ def pregunta_01():
         ruta_csv_salida = f"files/output/{nombre_archivo_csv}"
         
         with open(ruta_csv_salida, 'w', encoding='utf-8') as archivo_csv:
-            # Encabezado corregido a 'phrase,target'
             archivo_csv.write("phrase,target\n")
             
             for fila in datos:
                 frase_limpia = fila['phrase'].replace('\n', ' ').replace('\r', ' ').replace('"', '""')
-                # Aquí usamos fila['sentiment'] porque así se guardó en el diccionario,
-                # pero se asigna a la columna 'target' en el CSV.
                 archivo_csv.write(f'"{frase_limpia}",{fila["sentiment"]}\n')
     """
     La información requerida para este laboratio esta almacenada en el
